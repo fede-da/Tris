@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: const Color.fromARGB(255, 238, 237, 237),
+        splashColor: Colors.deepOrange,
       ),
       home: const SafeArea(
         child: HomePage(),

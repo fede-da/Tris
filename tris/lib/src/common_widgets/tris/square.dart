@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tris/src/handler/tris_handler.dart';
+import 'package:tris/src/utils/my_painter.dart';
 
 class Square extends StatelessWidget {
   /*side defines which border will be underlined:
@@ -11,27 +14,28 @@ class Square extends StatelessWidget {
       : super(key: key);
   final double width;
   final List<int> sides;
+
   @override
   Widget build(BuildContext context) {
+    Color customColor = Theme.of(context).splashColor;
+    Color defaultColor = Theme.of(context).primaryColor;
+    BorderSide customBorder = BorderSide(color: customColor, width: 3);
+    BorderSide defaultBorder = BorderSide(color: defaultColor, width: 3);
+
     return Container(
       width: width,
       height: width,
       decoration: BoxDecoration(
-          color: Colors.black,
           border: Border(
-            left: sides.contains(0)
-                ? const BorderSide(color: Colors.deepOrange, width: 3)
-                : const BorderSide(),
-            top: sides.contains(1)
-                ? const BorderSide(color: Colors.deepOrange, width: 3)
-                : const BorderSide(),
-            right: sides.contains(2)
-                ? const BorderSide(color: Colors.deepOrange, width: 3)
-                : const BorderSide(),
-            bottom: sides.contains(3)
-                ? const BorderSide(color: Colors.deepOrange, width: 3)
-                : const BorderSide(),
-          )),
+        left: sides.contains(0) ? customBorder : defaultBorder,
+        top: sides.contains(1) ? customBorder : defaultBorder,
+        right: sides.contains(2) ? customBorder : defaultBorder,
+        bottom: sides.contains(3) ? customBorder : defaultBorder,
+      )),
+      child: Center(
+          child: Container(
+        child: CustomPaint(painter: context.read<TrisHandler>().getPainter()),
+      )),
     );
   }
 }

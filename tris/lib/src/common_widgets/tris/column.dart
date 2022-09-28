@@ -59,7 +59,7 @@ class ThirdColumn extends StatelessWidget {
       children: [
         Square(width: width, sides: const [3]),
         Square(width: width, sides: const [3]),
-        Square(width: width, sides: const [0]),
+        Square(width: width, sides: const []),
       ],
     );
   }
