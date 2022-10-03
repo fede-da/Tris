@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tris/src/common_widgets/scaffold_custom.dart';
-import 'package:tris/src/utils/tris.dart';
+import 'package:tris/src/tris/tris.dart';
 
 class LocalGameView extends StatelessWidget {
   const LocalGameView({super.key});
