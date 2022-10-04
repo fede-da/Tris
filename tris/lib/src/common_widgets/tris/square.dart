@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tris/src/common_widgets/dialogue.dart';
 import 'package:tris/src/common_widgets/tris/base_square.dart';
 import 'package:tris/src/handler/tris_handler.dart';
 import 'package:tris/src/utils/my_painter.dart';
@@ -26,6 +27,31 @@ class Square extends BaseSquare {
 
   @override
   Widget build(BuildContext context) {
+    void showAlertDialog() {
+      // set up the button
+      Widget okButton = TextButton(
+        child: Text("OK"),
+        onPressed: () => Navigator.of(context).pushNamed('/LocalGame'),
+      );
+
+      // set up the AlertDialog
+      AlertDialog alert = AlertDialog(
+        title: Text("Restart"),
+        content: Text("This game is tie!"),
+        actions: [
+          okButton,
+        ],
+      );
+
+      // show the dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext newContext) {
+          return alert;
+        },
+      );
+    }
+
     void tapped() {
       Provider.of<TrisHandler>(context, listen: false)
           .squareTappedAtIndex(getId());

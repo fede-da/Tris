@@ -3,6 +3,7 @@ import 'package:tris/src/tris/turn/circle_turn.dart';
 import 'package:tris/src/tris/turn/cross_turn.dart';
 import 'package:tris/src/utils/my_painter.dart';
 
+import '../common_widgets/dialogue.dart';
 import '../common_widgets/tris/base_square.dart';
 import '../common_widgets/tris/square.dart';
 import '../tris/turn/turn.dart';
@@ -10,9 +11,11 @@ import '../tris/turn/turn.dart';
 class TrisHandler extends ChangeNotifier {
   final double squareWidth;
   late MyPainter painter;
+  BuildContext context;
   List<Turn> turns = [CrossTurn(), CircleTurn()];
+  int _mosse = 9;
 
-  TrisHandler({required this.squareWidth}) : super() {
+  TrisHandler({required this.context, required this.squareWidth}) : super() {
     painter = MyPainter(length: squareWidth);
   }
 
@@ -58,9 +61,38 @@ class TrisHandler extends ChangeNotifier {
   void squareTappedAtIndex(int index) {
     squares[index] = getNewSquare(squares[index]);
     notifyListeners();
+    checkWin();
+    decMosse();
     swapTurn();
     return;
   }
+
+  void checkWin() {}
+
+  int decMosse() {
+    if (--_mosse == 0) {
+      Dialogue.makeDialogue(context, "Game ended", restart);
+    }
+    return _mosse;
+  }
+
+  void restart() {
+    squares = [
+      Square(sides: const [2, 3]),
+      Square(sides: const [2, 3]),
+      Square(sides: const [2]),
+      Square(sides: const [2, 3]),
+      Square(sides: const [2, 3]),
+      Square(sides: const [2]),
+      Square(sides: const [3]),
+      Square(sides: const [3]),
+      Square(sides: const [])
+    ];
+    _mosse = 9;
+    notifyListeners();
+  }
+
+  int getMosse() => _mosse;
 
   BaseSquare getNewSquare(BaseSquare square) =>
       turns[0].getSquareFromTurn(square.sides);

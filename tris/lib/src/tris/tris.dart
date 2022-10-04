@@ -23,6 +23,7 @@ class Tris extends StatelessWidget {
             width: context.read<Sizer>().getTrisWidth(),
             child: ChangeNotifierProvider<TrisHandler>(
                 create: (_) => TrisHandler(
+                    context: context,
                     squareWidth: context.read<Sizer>().getSquareWidth()),
                 child: const TrisView()),
           )),
