@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Dialogue extends StatelessWidget {
   const Dialogue({Key? key}) : super(key: key);
 
-  static void makeDialogue(BuildContext context, String text, VoidCallback f) {
+  static void communicateEndGame(BuildContext context, VoidCallback f) {
     showDialog(
         context: context,
         builder: (BuildContext newContext) {
@@ -14,7 +14,7 @@ class Dialogue extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(text),
+                    const Text("Game ended"),
                     const SizedBox(
                       height: 8,
                     ),

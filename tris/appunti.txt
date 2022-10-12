@@ -1,0 +1,7 @@
+Il gioco adesso riconosce se è stato fatto un tris ma non distingue da chi,
+tantomeno attribuisce un punto sulla vittoria.
+
+Il funzionamento di riconoscimento del tris è semplice, tramite delle operazioni di divisioni per intero
+e resto (~/ e %) si localizza riga e colonna del nuovo segno inserito nel gioco
+e si controlla se in quelle due è presente un tris (lista.every segno==segnoInserito)
+poi si controllano entrambe le diagonali e se è presente un tris abbiamo fine partita.

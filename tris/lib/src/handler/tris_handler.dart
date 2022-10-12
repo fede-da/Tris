@@ -5,6 +5,7 @@ import 'package:tris/src/utils/my_painter.dart';
 
 import '../common_widgets/dialogue.dart';
 import '../common_widgets/tris/base_square.dart';
+import '../common_widgets/tris/signs.dart';
 import '../common_widgets/tris/square.dart';
 import '../tris/turn/turn.dart';
 
@@ -43,13 +44,6 @@ class TrisHandler extends ChangeNotifier {
     Signs.empty,
   ];
 
-  //index -> 0 to index - 1
-  void changeSignAt(int index, Signs sign) {
-    signs[index] = sign;
-    notifyListeners();
-    return;
-  }
-
   MyPainter getPainter() => painter;
 
   List<BaseSquare> get3RowsFromIndex(int index) => [
@@ -59,19 +53,37 @@ class TrisHandler extends ChangeNotifier {
       ];
 
   void squareTappedAtIndex(int index) {
-    squares[index] = getNewSquare(squares[index]);
+    BaseSquare newSquare = getNewSquare(squares[index]);
+    squares[index] = newSquare;
+    signs[index] = newSquare.sign;
+    print(signs[index]);
     notifyListeners();
-    checkWin();
+    checkWin(index, newSquare.sign);
     decMosse();
     swapTurn();
     return;
   }
 
-  void checkWin() {}
+  void checkWin(int index, Signs sign) {
+    int elemNumber = index;
+    int columnIndex = (elemNumber ~/ 3) * 3;
+    List<int> columnIndexes = [columnIndex, columnIndex + 1, columnIndex + 2];
+    print(columnIndexes);
+    int rowIndex = elemNumber % 3;
+    List<int> rowIndexes = [rowIndex, rowIndex + 3, rowIndex + 6];
+    print(rowIndexes);
+    if (columnIndexes.every((element) => signs[element] == sign) ||
+        rowIndexes.every((element) => signs[element] == sign) ||
+        [0, 4, 8].every((element) => signs[element] == sign) ||
+        [2, 4, 6].every((element) => signs[element] == sign)) {
+      Dialogue.communicateEndGame(context, restart);
+    }
+    return;
+  }
 
   int decMosse() {
     if (--_mosse == 0) {
-      Dialogue.makeDialogue(context, "Game ended", restart);
+      Dialogue.communicateEndGame(context, restart);
     }
     return _mosse;
   }
@@ -88,7 +100,19 @@ class TrisHandler extends ChangeNotifier {
       Square(sides: const [3]),
       Square(sides: const [])
     ];
+    signs = [
+      Signs.empty,
+      Signs.empty,
+      Signs.empty,
+      Signs.empty,
+      Signs.empty,
+      Signs.empty,
+      Signs.empty,
+      Signs.empty,
+      Signs.empty,
+    ];
     _mosse = 9;
+    swapTurn();
     notifyListeners();
   }
 
@@ -103,14 +127,4 @@ class TrisHandler extends ChangeNotifier {
     turns[1] = tmp;
     return;
   }
-}
-
-enum Signs { empty, circle, cross }
-
-class EmptySign {
-  Enum sign = Signs.empty;
-
-  void drawCircle() {}
-
-  void drawSquare() {}
 }

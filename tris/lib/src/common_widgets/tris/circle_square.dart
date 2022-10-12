@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tris/src/common_widgets/tris/base_square.dart';
+import 'package:tris/src/common_widgets/tris/signs.dart';
 import 'package:tris/src/common_widgets/tris/square.dart';
 
 // class CircleSquare extends StatelessWidget {
@@ -24,7 +25,8 @@ import 'package:tris/src/common_widgets/tris/square.dart';
 // }
 
 class CircleSquare extends BaseSquare {
-  CircleSquare({super.key, required super.sides});
+  const CircleSquare(
+      {super.key, required super.sides, super.sign = Signs.circle});
 
   @override
   Widget build(BuildContext context) {

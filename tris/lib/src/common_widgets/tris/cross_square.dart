@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:tris/src/common_widgets/tris/base_square.dart';
+import 'package:tris/src/common_widgets/tris/signs.dart';
 import 'package:tris/src/common_widgets/tris/square.dart';
 
 class CrossSquare extends BaseSquare {
-  CrossSquare({super.key, required super.sides});
+  const CrossSquare(
+      {super.key, required super.sides, super.sign = Signs.cross});
 
   @override
   Widget build(BuildContext context) {
