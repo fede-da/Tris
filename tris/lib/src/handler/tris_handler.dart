@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tris/src/tris/turn/circle_turn.dart';
 import 'package:tris/src/tris/turn/cross_turn.dart';
-import 'package:tris/src/utils/my_painter.dart';
+import 'package:tris/src/utils/cross_painter.dart';
 
 import '../common_widgets/dialogue.dart';
 import '../common_widgets/tris/base_square.dart';
@@ -10,15 +10,11 @@ import '../common_widgets/tris/square.dart';
 import '../tris/turn/turn.dart';
 
 class TrisHandler extends ChangeNotifier {
-  final double squareWidth;
-  late MyPainter painter;
   BuildContext context;
   List<Turn> turns = [CrossTurn(), CircleTurn()];
   int _mosse = 9;
 
-  TrisHandler({required this.context, required this.squareWidth}) : super() {
-    painter = MyPainter(length: squareWidth);
-  }
+  TrisHandler({required this.context}) : super();
 
   List<BaseSquare> squares = [
     Square(sides: const [2, 3]),
@@ -44,8 +40,6 @@ class TrisHandler extends ChangeNotifier {
     Signs.empty,
   ];
 
-  MyPainter getPainter() => painter;
-
   List<BaseSquare> get3RowsFromIndex(int index) => [
         squares[index],
         squares[index + 1],
@@ -53,7 +47,7 @@ class TrisHandler extends ChangeNotifier {
       ];
 
   void squareTappedAtIndex(int index) {
-    BaseSquare newSquare = getNewSquare(squares[index]);
+    BaseSquare newSquare = getNewSquare(squares[index], index);
     squares[index] = newSquare;
     signs[index] = newSquare.sign;
     print(signs[index]);
@@ -111,6 +105,7 @@ class TrisHandler extends ChangeNotifier {
       Signs.empty,
       Signs.empty,
     ];
+
     _mosse = 9;
     swapTurn();
     notifyListeners();
@@ -118,8 +113,10 @@ class TrisHandler extends ChangeNotifier {
 
   int getMosse() => _mosse;
 
-  BaseSquare getNewSquare(BaseSquare square) =>
-      turns[0].getSquareFromTurn(square.sides);
+  BaseSquare getNewSquare(BaseSquare square, int index) {
+    final ret = turns[0].getSquareFromTurn(square.sides);
+    return ret;
+  }
 
   void swapTurn() {
     Turn tmp = turns[0];

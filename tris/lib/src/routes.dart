@@ -16,7 +16,7 @@ class AppRouter {
       case '/Statistics':
         return MaterialPageRoute(builder: (_) => const StatisticsPage());
       case '/Credits':
-        return MaterialPageRoute(builder: (_) => const CreditsPage());
+        return MaterialPageRoute(builder: (_) => CreditsPage());
       case '/LocalGame':
         return MaterialPageRoute(builder: (_) => const LocalGameView());
       case '/IAGame':

@@ -5,7 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:tris/src/features/blocs/stats_bloc/stats_bloc.dart';
-import 'package:tris/src/utils/my_painter.dart';
+import 'package:tris/src/utils/cross_painter.dart';
 
 import 'src/init/bloc_observer.dart';
 import 'src/init/my_app.dart';

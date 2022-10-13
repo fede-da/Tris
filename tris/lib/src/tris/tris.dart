@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:tris/src/common_widgets/tris/column.dart';
-import 'package:tris/src/utils/my_painter.dart';
+import 'package:tris/src/utils/cross_painter.dart';
 import 'package:tris/src/utils/sizer.dart';
 
 import '../common_widgets/tris/square.dart';
@@ -22,10 +22,11 @@ class Tris extends StatelessWidget {
       builder: ((context, child) => SizedBox(
             width: context.read<Sizer>().getTrisWidth(),
             child: ChangeNotifierProvider<TrisHandler>(
-                create: (_) => TrisHandler(
-                    context: context,
-                    squareWidth: context.read<Sizer>().getSquareWidth()),
-                child: const TrisView()),
+              create: (newContext) => TrisHandler(
+                context: newContext,
+              ),
+              child: const TrisView(),
+            ),
           )),
     );
   }

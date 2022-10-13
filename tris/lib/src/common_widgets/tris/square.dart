@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:tris/src/common_widgets/dialogue.dart';
 import 'package:tris/src/common_widgets/tris/base_square.dart';
 import 'package:tris/src/handler/tris_handler.dart';
-import 'package:tris/src/utils/my_painter.dart';
+import 'package:tris/src/utils/cross_painter.dart';
+
+//Semplice square vuota, poi verrà sostituita da cerchio o x
 
 class Square extends BaseSquare {
   /*side defines which border will be underlined:
@@ -27,31 +29,6 @@ class Square extends BaseSquare {
 
   @override
   Widget build(BuildContext context) {
-    void showAlertDialog() {
-      // set up the button
-      Widget okButton = TextButton(
-        child: Text("OK"),
-        onPressed: () => Navigator.of(context).pushNamed('/LocalGame'),
-      );
-
-      // set up the AlertDialog
-      AlertDialog alert = AlertDialog(
-        title: Text("Restart"),
-        content: Text("This game is tie!"),
-        actions: [
-          okButton,
-        ],
-      );
-
-      // show the dialog
-      showDialog(
-        context: context,
-        builder: (BuildContext newContext) {
-          return alert;
-        },
-      );
-    }
-
     void tapped() {
       Provider.of<TrisHandler>(context, listen: false)
           .squareTappedAtIndex(getId());
@@ -76,11 +53,6 @@ class Square extends BaseSquare {
                 right: sides.contains(2) ? customBorder : defaultBorder,
                 bottom: sides.contains(3) ? customBorder : defaultBorder,
               )),
-          child: Center(
-              child: Container(
-            child:
-                CustomPaint(painter: context.read<TrisHandler>().getPainter()),
-          )),
         ),
       ),
     );

@@ -8,6 +8,8 @@ import '../../common_widgets/tris/square.dart';
 class CrossTurn implements Turn {
   @override
   BaseSquare getSquareFromTurn(List<int> sides) {
-    return CrossSquare(sides: sides);
+    return CrossSquare(
+      sides: sides,
+    );
   }
 }
