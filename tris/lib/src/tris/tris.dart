@@ -11,12 +11,10 @@ import '../common_widgets/tris/square.dart';
 import '../handler/tris_handler.dart';
 
 class Tris extends StatelessWidget {
-  Tris({super.key});
-  late TrisUI trisUi;
+  const Tris({super.key});
 
   @override
   Widget build(BuildContext context) {
-    trisUi = TrisUI(context: context);
     return Provider(
       create: (_) => Sizer(
         width: MediaQuery.of(context).size.width * 0.7,
@@ -24,8 +22,8 @@ class Tris extends StatelessWidget {
       ),
       builder: ((context, child) => SizedBox(
             width: context.read<Sizer>().getTrisWidth(),
-            child: ChangeNotifierProvider<TrisHandler>(
-              create: (newContext) => TrisHandler(trisUI: trisUi),
+            child: ChangeNotifierProvider<TrisUI>(
+              create: (newContext) => TrisUI(context: context),
               child: const TrisView(),
             ),
           )),

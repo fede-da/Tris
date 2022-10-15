@@ -25,7 +25,7 @@ class TrisView extends StatelessWidget {
     return SizedBox(
       height: context.read<Sizer>().getTrisHeigth(),
       width: context.read<Sizer>().getTrisWidth(),
-      child: Consumer<TrisHandler>(
+      child: Consumer<TrisUI>(
         builder: (context, value, child) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -33,19 +33,19 @@ class TrisView extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: TrisColumn(
-                  squaresList: value.getTrisUI().get3RowsFromIndex(0),
+                  squaresList: value.get3RowsFromIndex(0),
                 ),
               ),
               Expanded(
                 flex: 1,
                 child: TrisColumn(
-                  squaresList: value.getTrisUI().get3RowsFromIndex(3),
+                  squaresList: value.get3RowsFromIndex(3),
                 ),
               ),
               Expanded(
                 flex: 1,
                 child: TrisColumn(
-                  squaresList: value.getTrisUI().get3RowsFromIndex(6),
+                  squaresList: value.get3RowsFromIndex(6),
                 ),
               ),
             ],

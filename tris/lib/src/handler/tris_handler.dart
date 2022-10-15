@@ -8,14 +8,9 @@ import '../common_widgets/tris/square.dart';
 import '../tris/turn/turn.dart';
 import '../ui_components/tris/tris_ui.dart';
 
-class TrisHandler extends ChangeNotifier {
+class TrisHandler {
   List<Turn> turns = [CrossTurn(), CircleTurn()];
   int _mosse = 9;
-  TrisUI trisUI;
-
-  TrisHandler({required this.trisUI}) : super();
-
-  TrisUI getTrisUI() => trisUI;
 
   List<Signs> signs = [
     Signs.empty,
@@ -29,19 +24,15 @@ class TrisHandler extends ChangeNotifier {
     Signs.empty,
   ];
 
-  void squareTappedAtIndex(int index) {
-    BaseSquare s = trisUI.getSquareAt(index);
-    BaseSquare newSquare = getNewSquare(s, index);
-    trisUI.squareTappedAtIndex(index, newSquare);
-    notifyListeners();
-    signs[index] = newSquare.sign;
-    checkWin(index, newSquare.sign);
-    decMosse();
-    swapTurn();
+  BaseSquare getSquareAt(int index, List<int> sides) =>
+      turns[0].getSquareFromTurn(sides);
+
+  void updateSign(int index, Signs sign) {
+    signs[index] = sign;
     return;
   }
 
-  void checkWin(int index, Signs sign) {
+  bool checkWin(int index, Signs sign) {
     int elemNumber = index;
     int columnIndex = (elemNumber ~/ 3) * 3;
     List<int> columnIndexes = [columnIndex, columnIndex + 1, columnIndex + 2];
@@ -52,24 +43,18 @@ class TrisHandler extends ChangeNotifier {
         [0, 4, 8].every((element) => signs[element] == sign) ||
         [2, 4, 6].every((element) => signs[element] == sign)) {
       restart();
-      trisUI.communicateVictory();
       _mosse++;
-      return;
+      return true;
     }
-    return;
+    return false;
   }
 
-  void decMosse() {
-    if (--_mosse == 0) {
-      restart();
-      trisUI.communicateEndGame();
-      return;
-    }
-    return;
+  int decMosse() {
+    swapTurn();
+    return --_mosse;
   }
 
   void restart() {
-    trisUI.reset();
     signs = [
       Signs.empty,
       Signs.empty,
@@ -83,7 +68,6 @@ class TrisHandler extends ChangeNotifier {
     ];
 
     _mosse = 9;
-    notifyListeners();
   }
 
   int getMosse() => _mosse;

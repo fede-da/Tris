@@ -28,8 +28,8 @@ class Dialogue extends StatelessWidget {
                         //     child: Text("Cancelar")),
                         ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pop();
                               f();
+                              Navigator.of(context).pop();
                             },
                             child: const Text("OK"))
                       ],
