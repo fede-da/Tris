@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tris/src/common_widgets/dialogue.dart';
 import 'package:tris/src/common_widgets/tris/base_square.dart';
 import 'package:tris/src/handler/tris_handler.dart';
+import 'package:tris/src/ui_components/tris/tris_ia.dart';
 import 'package:tris/src/ui_components/tris/tris_ui.dart';
 import 'package:tris/src/utils/cross_painter.dart';
 
@@ -31,7 +32,13 @@ class Square extends BaseSquare {
   @override
   Widget build(BuildContext context) {
     void tapped() {
-      Provider.of<TrisUI>(context, listen: false).squareTappedAtIndex(getId());
+      try {
+        Provider.of<TrisUI>(context, listen: false)
+            .squareTappedAtIndex(getId());
+      } catch (e) {
+        Provider.of<TrisIA>(context, listen: false)
+            .squareTappedAtIndex(getId());
+      }
       return print(getId());
     }
 

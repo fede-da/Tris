@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tris/src/common_widgets/tris/signs.dart';
 import 'package:tris/src/tris/turn/turn.dart';
 
 import '../../common_widgets/tris/base_square.dart';
@@ -12,4 +13,7 @@ class CrossTurn implements Turn {
       sides: sides,
     );
   }
+
+  @override
+  Signs getSign() => Signs.cross;
 }

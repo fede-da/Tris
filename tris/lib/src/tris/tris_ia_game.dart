@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-import 'package:tris/src/views/tris_view.dart';
-import 'package:tris/src/ui_components/tris/tris_ui.dart';
-import 'package:tris/src/utils/cross_painter.dart';
-import 'package:tris/src/utils/sizer.dart';
+import 'package:tris/src/views/tris_ia_view.dart';
 
-import '../common_widgets/tris/square.dart';
-import '../handler/tris_handler.dart';
+import '../ui_components/tris/tris_ia.dart';
+import '../utils/sizer.dart';
 
-class Tris extends StatelessWidget {
-  const Tris({super.key});
+class TrisIAGame extends StatelessWidget {
+  const TrisIAGame({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +19,9 @@ class Tris extends StatelessWidget {
       ),
       builder: ((context, child) => SizedBox(
             width: context.read<Sizer>().getTrisWidth(),
-            child: ChangeNotifierProvider<TrisUI>(
-              create: (newContext) => TrisUI(context: context),
-              child: const TrisView(),
+            child: ChangeNotifierProvider<TrisIA>(
+              create: (newContext) => TrisIA(context: context),
+              child: const TrisViewIA(),
             ),
           )),
     );

@@ -3,6 +3,7 @@ import 'package:tris/src/common_widgets/tris/circle_square.dart';
 import 'package:tris/src/tris/turn/turn.dart';
 
 import '../../common_widgets/tris/base_square.dart';
+import '../../common_widgets/tris/signs.dart';
 import '../../common_widgets/tris/square.dart';
 
 class CircleTurn implements Turn {
@@ -12,4 +13,7 @@ class CircleTurn implements Turn {
       sides: sides,
     );
   }
+
+  @override
+  Signs getSign() => Signs.circle;
 }

@@ -23,6 +23,6 @@ class TrisView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Tris());
+    return const Center(child: Tris());
   }
 }
