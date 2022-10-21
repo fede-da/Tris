@@ -5,6 +5,7 @@ class Dialogue extends StatelessWidget {
 
   static void communicateEndGame(BuildContext context, VoidCallback f) {
     showDialog(
+        barrierDismissible: false,
         context: context,
         builder: (BuildContext newContext) {
           return Dialog(
@@ -21,11 +22,6 @@ class Dialogue extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        // ElevatedButton(      <-- many buttons here
-                        //     onPressed: () {
-                        //       Navigator.of(newContext).pop();
-                        //     },
-                        //     child: Text("Cancelar")),
                         ElevatedButton(
                             onPressed: () {
                               f();

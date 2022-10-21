@@ -16,4 +16,10 @@ class CircleTurn implements Turn {
 
   @override
   Signs getSign() => Signs.circle;
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "This square has sign : ${getSign()}";
+  }
 }

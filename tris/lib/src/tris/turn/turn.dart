@@ -8,4 +8,10 @@ abstract class Turn {
   BaseSquare getSquareFromTurn(List<int> sides);
 
   Signs getSign();
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "This square has sign : ${getSign()}";
+  }
 }

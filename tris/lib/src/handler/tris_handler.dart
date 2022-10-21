@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tris/src/common_widgets/tris/turnMaster.dart';
 import 'package:tris/src/tris/turn/circle_turn.dart';
 import 'package:tris/src/tris/turn/cross_turn.dart';
 import '../common_widgets/dialogue.dart';
@@ -9,11 +10,13 @@ import '../tris/turn/turn.dart';
 import '../ui_components/tris/tris_ui.dart';
 
 class TrisHandler {
-  List<Turn> turns = [CrossTurn(), CircleTurn()];
+  TurnMaster tm = TurnMaster();
   int _mosse = 9;
-  bool iaCanMove = true;
   int latestChoice = 0;
-  bool hostMovesFirst = true;
+  bool iaCanMove = true;
+  bool iaMovesFirst = false;
+  List<int> diag1 = const [0, 4, 8];
+  List<int> diag2 = const [2, 4, 6];
 
   List<Signs> signs = [
     Signs.empty,
@@ -27,8 +30,9 @@ class TrisHandler {
     Signs.empty,
   ];
 
-  BaseSquare getSquareAt(int index, List<int> sides) =>
-      turns[0].getSquareFromTurn(sides);
+  BaseSquare getSquareAt(List<int> sides) => tm.getCurrentTurnSquare(sides);
+
+  bool isEmptyAt(int index) => signs[index] == Signs.empty;
 
   void updateSign(int index, Signs sign) {
     signs[index] = sign;
@@ -41,7 +45,7 @@ class TrisHandler {
   }
 
   void swapFirstMoving() {
-    hostMovesFirst = !hostMovesFirst;
+    iaMovesFirst = !iaMovesFirst;
     return;
   }
 
@@ -50,6 +54,7 @@ class TrisHandler {
   bool canMove() => iaCanMove;
 
   void abilitateMove() {
+    print("Now ia can move");
     iaCanMove = true;
     return;
   }
@@ -59,7 +64,6 @@ class TrisHandler {
     List<int> rowIndexes = getRowIndexes(index);
     //checks tris on row, column and diagonal lines
     if (isTris(rowIndexes, columnIndexes, sign)) {
-      restart();
       _mosse++;
       return true;
     }
@@ -69,8 +73,8 @@ class TrisHandler {
   bool isTris(List<int> rowIndexes, List<int> columnIndexes, Signs sign) {
     return isTrisOn(columnIndexes, sign) ||
         isTrisOn(rowIndexes, sign) ||
-        isTrisOn([0, 4, 8], sign) ||
-        isTrisOn([2, 4, 6], sign);
+        isTrisOn(diag1, sign) ||
+        isTrisOn(diag2, sign);
   }
 
   bool isTrisOn(List<int> toCheck, Signs sign) {
@@ -90,7 +94,6 @@ class TrisHandler {
   }
 
   int decMosse() {
-    swapTurn();
     return --_mosse;
   }
 
@@ -107,24 +110,25 @@ class TrisHandler {
       Signs.empty,
     ];
     iaCanMove = true;
-    latestChoice = 0;
+    latestChoice = -1;
     _mosse = 9;
-    swapFirstMoving();
+    tm.restart();
+    cleanIa();
   }
+
+  void cleanIa() {}
 
   int getMosse() => _mosse;
 
   BaseSquare getNewSquare(BaseSquare square, int index) {
-    final ret = turns[0].getSquareFromTurn(square.sides);
+    final ret = tm.getCurrentTurnSquare(square.sides);
     return ret;
   }
 
   void move(void Function(int) f) {}
 
   void swapTurn() {
-    Turn tmp = turns[0];
-    turns[0] = turns[1];
-    turns[1] = tmp;
+    tm.swapTurn();
     return;
   }
 }

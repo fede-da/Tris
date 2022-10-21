@@ -34,7 +34,7 @@ class TrisBase extends ChangeNotifier {
 
   void squareTappedAtIndex(int index) {
     handler.setChoice(index);
-    BaseSquare newSquare = handler.getSquareAt(index, squares[index].sides);
+    BaseSquare newSquare = handler.getSquareAt(squares[index].sides);
     squares[index] = newSquare;
     notifyListeners();
     handler.updateSign(index, newSquare.sign);
@@ -43,6 +43,7 @@ class TrisBase extends ChangeNotifier {
     } else if (handler.decMosse() == 0) {
       return communicateEndGame();
     }
+    handler.swapTurn();
     if (iaCanMove()) {
       handler.move(squareTappedAtIndex);
     } else {
@@ -64,20 +65,26 @@ class TrisBase extends ChangeNotifier {
       Square(sides: const [3]),
       Square(sides: const [])
     ];
-    notifyListeners();
     handler.restart();
-    return iaMakesMove(squareTappedAtIndex);
+    notifyListeners();
+    iaMakesMove(squareTappedAtIndex);
+    notifyListeners();
+    return;
   }
 
   void iaMakesMove(void Function(int) f) {}
 
   void communicateVictory() {
+    print("communicate victory called");
     Dialogue.communicateEndGame(context, reset);
+    notifyListeners();
     return;
   }
 
   void communicateEndGame() {
+    print("communicate end-game called");
     Dialogue.communicateEndGame(context, reset);
+    notifyListeners();
     return;
   }
 }
