@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:theme_handler/bloc/theme_bloc.dart';
 import 'package:tris/src/features/blocs/stats_bloc/stats_bloc.dart';
 import 'package:tris/src/utils/cross_painter.dart';
 
@@ -33,6 +34,10 @@ class TrisGame extends StatelessWidget {
       providers: [
         BlocProvider<StatsBloc>(
           create: (BuildContext context) => StatsBloc(),
+        ),
+        BlocProvider<ThemeBloc>(
+          create: (BuildContext context) => ThemeBloc(),
+          lazy: false,
         ),
       ],
       child: MyApp(),

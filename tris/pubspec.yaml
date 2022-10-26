@@ -39,6 +39,8 @@ dependencies:
   hydrated_bloc: ^8.1.0
   path_provider: ^2.0.11
   provider: ^6.0.3
+  theme_handler: 
+    path: ./theme_handler
 
 dev_dependencies:
   flutter_test:

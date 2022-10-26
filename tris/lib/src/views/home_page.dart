@@ -31,6 +31,8 @@ class HomePageItems extends StatelessWidget {
           children: [
             CustomButton(pageToVisit: '/NewGame', buttonText: "NewGame"),
             const MySpacer(),
+            CustomButton(pageToVisit: '/Settings', buttonText: "Settings"),
+            const MySpacer(),
             CustomButton(pageToVisit: '/Statistics', buttonText: "Statistics"),
             const MySpacer(),
             CustomButton(pageToVisit: '/Credits', buttonText: "Credits"),

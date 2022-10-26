@@ -4,6 +4,7 @@ import 'package:tris/src/views/home_page.dart';
 import 'package:tris/src/views/ia_game.dart';
 import 'package:tris/src/views/local_game.dart';
 import 'package:tris/src/views/new_game.dart';
+import 'package:tris/src/views/settings.dart';
 import 'package:tris/src/views/statistics.dart';
 
 class AppRouter {
@@ -15,6 +16,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const NewGamePage());
       case '/Statistics':
         return MaterialPageRoute(builder: (_) => const StatisticsPage());
+      case '/Settings':
+        return MaterialPageRoute(builder: (_) => SettingsPage());
       case '/Credits':
         return MaterialPageRoute(builder: (_) => CreditsPage());
       case '/LocalGame':
