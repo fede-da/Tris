@@ -5,6 +5,8 @@ abstract class ThemeState {}
 
 class ThemeInitial extends ThemeState {}
 
+class ThemeInitialTerminated extends ThemeState {}
+
 class LightThemeConfirmed extends ThemeState {}
 
 class DarkThemeConfirmed extends ThemeState {}

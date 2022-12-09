@@ -146,6 +146,7 @@ class IAHandler extends TrisHandler {
         break;
     }
     if (!super.isEmptyAt(ret)) {
+      if (super.isEmptyAt(8)) return 8;
       //Chooses the first empty elemnt on corners
       return [
         super.signs[0],
